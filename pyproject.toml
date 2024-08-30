@@ -2,9 +2,7 @@
 name = "litgpt"
 version = "0.4.11"
 description = "Hackable implementation of state-of-the-art open-source LLMs"
-authors = [
-    { name = "Lightning AI", email = "contact@lightning.ai" },
-]
+authors = [{ name = "Lightning AI", email = "contact@lightning.ai" }]
 readme = "README.md"
 license = { file = "LICENSE" }
 
@@ -31,44 +29,42 @@ test = [
     "pytest-rerunfailures>=14.0",
     "pytest-timeout>=2.3.1",
     "pytest-dependency>=0.6.0",
-    "transformers>=4.38.0",  # numerical comparisons
+    "transformers>=4.38.0",                                           # numerical comparisons
     "einops>=0.7.0",
     "protobuf>=4.23.4",
     "lightning-thunder==0.2.0.dev20240623; python_version >= '3.10'",
 ]
 all = [
-    "bitsandbytes==0.42.0",      # quantization
-    "sentencepiece>=0.2.0",      # llama-based models
-    "requests>=2.31.0",          # litgpt.data
-    "litdata==0.2.17",           # litgpt.data
-    "litserve>=0.1.5",           # litgpt.deploy
-    "zstandard>=0.22.0",         # litgpt.data.prepare_slimpajama.py
-    "pandas>=1.9.0",             # litgpt.data.prepare_starcoder.py
-    "pyarrow>=15.0.2",           # litgpt.data.prepare_starcoder.py
-    "tensorboard>=2.14.0",       # litgpt.pretrain
-    "torchmetrics>=1.3.1",       # litgpt.pretrain
-    "datasets>=2.18.0",          # litgpt.evaluate
-    "transformers>=4.38.0",      # litgpt.evaluate
-    "lm-eval>=0.4.2",            # litgpt.evaluate
-    "huggingface_hub[hf_transfer]>=0.21.0"  # download
+    "bitsandbytes==0.42.0",                 # quantization
+    "sentencepiece>=0.2.0",                 # llama-based models
+    "requests>=2.31.0",                     # litgpt.data
+    "litdata==0.2.17",                      # litgpt.data
+    "litserve>=0.1.5",                      # litgpt.deploy
+    "zstandard>=0.22.0",                    # litgpt.data.prepare_slimpajama.py
+    "pandas>=1.9.0",                        # litgpt.data.prepare_starcoder.py
+    "pyarrow>=15.0.2",                      # litgpt.data.prepare_starcoder.py
+    "tensorboard>=2.14.0",                  # litgpt.pretrain
+    "torchmetrics>=1.3.1",                  # litgpt.pretrain
+    "datasets>=2.18.0",                     # litgpt.evaluate
+    "transformers>=4.38.0",                 # litgpt.evaluate
+    "lm-eval>=0.4.2",                       # litgpt.evaluate
+    "huggingface_hub[hf_transfer]>=0.21.0", # download
 ]
 
 [build-system]
-requires = [
-    "setuptools>=68.2.2",
-    "wheel>=0.41.2",
-]
+requires = ["setuptools>=68.2.2", "wheel>=0.41.2"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
-include = [
-    "litgpt",
-    "litgpt.*",
-]
+include = ["litgpt", "litgpt.*"]
 exclude = []
 
 [tool.setuptools.package-data]
-litgpt = [
-    "LICENSE",
-    "README.md",
-]
+litgpt = ["LICENSE", "README.md"]
+
+[tool.black]
+line-length = 1000
+
+[tool.isort]
+line_length = 1000
+profile = "black"
