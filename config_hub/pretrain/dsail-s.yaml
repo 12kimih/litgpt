@@ -61,7 +61,7 @@ train:
   tie_embeddings: true
 
   #   (type: Optional[float], default: 1.0)
-  max_norm: 1e-2
+  max_norm: 1.0
 
   #   (type: float, default: 4e-05)
   min_lr: 5e-5

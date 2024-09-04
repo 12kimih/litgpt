@@ -40,7 +40,7 @@ train:
   global_batch_size: 512
 
   # Number of samples per data-parallel rank (type: int, default: 4)
-  micro_batch_size: 8
+  micro_batch_size: 4
 
   # Number of iterations with learning rate warmup active (type: int, default: 2000)
   lr_warmup_steps: 1000
@@ -61,7 +61,7 @@ train:
   tie_embeddings: true
 
   #   (type: Optional[float], default: 1.0)
-  max_norm: 1e-2
+  max_norm: 1.0
 
   #   (type: float, default: 4e-05)
   min_lr: 5e-5
