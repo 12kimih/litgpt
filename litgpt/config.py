@@ -97,21 +97,14 @@ class Config:
         self.rope_n_elem = int(self.rotary_percentage * self.head_size)
 
         if self.sliding_window_size is not None:
-            self.sliding_window_layer_placing = (
-                1 if (self.sliding_window_layer_placing is None or self.sliding_window_layer_placing == "all") else 2
-            )
+            self.sliding_window_layer_placing = 1 if (self.sliding_window_layer_placing is None or self.sliding_window_layer_placing == "all") else 2
 
     @classmethod
     def from_name(cls, name: str, **kwargs: Any) -> Optional[Self]:
         if name not in name_to_config:
             # search through all `config['hf_config']['name']`
             try:
-                conf_dict = next(
-                    config
-                    for config in configs
-                    if name == config["hf_config"]["name"]
-                    or config["hf_config"]["org"] + "/" + config["hf_config"]["name"] == name
-                )
+                conf_dict = next(config for config in configs if name == config["hf_config"]["name"] or config["hf_config"]["org"] + "/" + config["hf_config"]["name"] == name)
             except StopIteration:
                 raise ValueError(f"{name!r} is not a supported config name")
         else:
@@ -143,6 +136,7 @@ class Config:
     def mlp_class(self) -> Type:
         # `self.mlp_class_name` cannot be the type to keep the config serializable
         import litgpt.model
+
         return getattr(litgpt.model, self.mlp_class_name)
 
     @property
@@ -1875,7 +1869,81 @@ llama_2_function_calling = [
         rope_base=10000,
     )
 ]
-
 configs.extend(llama_2_function_calling)
+
+###############
+# SmolLM
+###############
+dsail = [
+    dict(
+        name="DSAIL-S",
+        block_size=2048,
+        vocab_size=50281,
+        padded_vocab_size=50304,
+        n_layer=32,
+        n_head=8,
+        n_embd=512,
+        n_query_groups=4,
+        rotary_percentage=1.0,
+        parallel_residual=False,
+        bias=False,
+        norm_class_name="RMSNorm",
+        mlp_class_name="LLaMAMLP",
+        intermediate_size=1536,
+        rope_base=500000,
+    ),
+    dict(
+        name="DSAIL-M",
+        block_size=2048,
+        vocab_size=50281,
+        padded_vocab_size=50304,
+        n_layer=32,
+        n_head=16,
+        n_embd=1024,
+        n_query_groups=4,
+        rotary_percentage=1.0,
+        parallel_residual=False,
+        bias=False,
+        norm_class_name="RMSNorm",
+        mlp_class_name="LLaMAMLP",
+        intermediate_size=3072,
+        rope_base=500000,
+    ),
+    dict(
+        name="DSAIL-L",
+        block_size=2048,
+        vocab_size=50281,
+        padded_vocab_size=50304,
+        n_layer=32,
+        n_head=32,
+        n_embd=2048,
+        n_query_groups=8,
+        rotary_percentage=1.0,
+        parallel_residual=False,
+        bias=False,
+        norm_class_name="RMSNorm",
+        mlp_class_name="LLaMAMLP",
+        intermediate_size=6144,
+        rope_base=500000,
+    ),
+    dict(
+        name="DSAIL-XL",
+        block_size=2048,
+        vocab_size=50281,
+        padded_vocab_size=50304,
+        n_layer=32,
+        n_head=32,
+        n_embd=3072,
+        n_query_groups=8,
+        rotary_percentage=1.0,
+        parallel_residual=False,
+        bias=False,
+        norm_class_name="RMSNorm",
+        mlp_class_name="LLaMAMLP",
+        intermediate_size=8192,
+        rope_base=500000,
+    ),
+]
+configs.extend(dsail)
 
 name_to_config = {config["name"]: config for config in configs}

@@ -205,4 +205,5 @@ client.py
 
 _test.py
 _test.ipynb
+logs/
 # <<< Workspace <<<

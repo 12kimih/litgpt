@@ -17,7 +17,7 @@ from litgpt.tokenizer import Tokenizer
 class FineWebEdu(DataModule):
     """The FineWebEdu data module for pretraining."""
 
-    data_path: Union[str, Path] = Path("data/fineweb-edu-shards")
+    data_path: Union[str, Path] = Path("data/fineweb-edu")
     """The path to the data directory, containing two folders 'train' and 'val'
     which are the output of the preprocessing step. The path can also be a remote path (e.g., s3://)."""
     val_split_fraction: float = 0.0005
@@ -54,7 +54,7 @@ class FineWebEdu(DataModule):
             print(f"Found FineWebEdu train and val dir: {self.data_path}. Skipping preprocessing.")
             return
 
-        dataset = load_dataset("data/fineweb-edu/sample/350BT", num_proc=os.cpu_count() // 2)
+        dataset = load_dataset(path="HuggingFaceFW/fineweb-edu", name="sample-350BT", num_proc=os.cpu_count() // 2)
 
         # Split the data in training and validation
         split_dataset = dataset["train"].train_test_split(test_size=self.val_split_fraction, seed=self.seed, shuffle=True)
@@ -80,10 +80,6 @@ class FineWebEdu(DataModule):
             num_workers=os.cpu_count() // 2,
             chunk_bytes="200MB",
         )
-
-        import code
-
-        code.interact(local=locals())
 
     def train_dataloader(self) -> DataLoader:
         from litdata.streaming import StreamingDataLoader, StreamingDataset, TokensLoader

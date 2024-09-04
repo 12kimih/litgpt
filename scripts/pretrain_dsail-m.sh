@@ -14,4 +14,4 @@ unset __conda_setup
 
 conda activate litgpt
 
-CUDA_VISIBLE_DEVICES=0,1,2,3 litgpt pretrain --config config_hub/pretrain/debug.yaml
+CUDA_VISIBLE_DEVICES=0,1,2,3 litgpt pretrain --config config_hub/pretrain/dsail-m.yaml
